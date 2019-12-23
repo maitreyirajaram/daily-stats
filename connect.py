@@ -22,7 +22,7 @@ from email.mime.application import MIMEApplication
 #TO-DO: reverse-geolocation get API sorted out
 #TO-DO: add maps with pinned locations for daily live (active) users -- in body of email
 #TO-DO: write to the csv files correctly when adding them as email attachment
-#TO-DO: scheduler for emails -- send to shama email and cc analytics account
+#TO-DO: scheduler for emails
 
 def main():
     parser = argparse.ArgumentParser()
@@ -54,14 +54,14 @@ def create_attachment(filepath):
     return fileMIMEForm
 
 
-def send_mail(noNewUsers, locNewUser, LNNewUser):
+def send_mail(noNewUsers, locNewUser, LNNewUser, fromEmail, toEmail):
     client = boto3.client('ses')
     ### email contents
     msg = MIMEMultipart()
-    msg['FROM'] = 'jetzyanalytics@gmail.com'
-    msg['To'] = 'jetzyanalytics@gmail.com'
-    msg['Subject'] = "Your Jetzy Stats for Today-GOOGLE API TEST"
-    body1 = "Welcome to your daily Jetzy app report, delivered through your AWS (SES) account and connected to your jetzy-webservices MSSQL database.\n\nAttached are files containing results from your daily SQL queries. Includes registered accounts per city, new user account data, and top live destinations for the day.\n\nNumber of New Users: "
+    msg['FROM'] = fromEmail
+    msg['To'] = toEmail
+    msg['Subject'] = "Your Stats for Today-GOOGLE API TEST"
+    body1 = "Welcome to your daily app report, delivered through your AWS (SES) account and connected to your jetzy-webservices MSSQL database.\n\nAttached are files containing results from your daily SQL queries. Includes registered accounts per city, new user account data, and top live destinations for the day.\n\nNumber of New Users: "
     body2 = "\nTop Home Country for New Users: "
     body3 = " new users come from "
     body4 = "\n\nThis program is currently set to fetch data at: 2:00 PM (EST).\n(C) 2019 Maitreyi Rajaram"
@@ -70,8 +70,8 @@ def send_mail(noNewUsers, locNewUser, LNNewUser):
     msg.attach(MIMEText(body, 'plain'))
 
 
-    msg.attach(create_attachment("/Users/Maitreyi/jetzy_stats/DailyReport.csv"))
-    msg.attach(create_attachment("/Users/Maitreyi/jetzy_stats/NewUserInfo.csv"))
+    msg.attach(create_attachment("../daily-app-stats/DailyReport.csv"))
+    msg.attach(create_attachment("../daily-app-stats/NewUserInfo.csv"))
 
     result = client.send_raw_email(RawMessage={'Data': msg.as_string().encode("utf-8")},Source=msg['From'],
                                    Destinations=[msg['To']])
