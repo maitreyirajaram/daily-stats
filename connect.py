@@ -2,7 +2,7 @@ import pyodbc
 import argparse
 import boto3
 import datetime
-#import googlemaps ###charge will be applied
+import googlemaps 
 import math
 #import reverse_geocode ###python offline geocoder
 import csv
@@ -16,13 +16,9 @@ from email.mime.application import MIMEApplication
 
 
 # make_output_files: connects to live database, runs SQL queries and writes results to files
-#send_mail: creates and sends email with all file attachments
-#TO-DO: AWS instance scheduler -- should run around midday 11:30 am (number of new users increases throughout the day)
-
-#TO-DO: reverse-geolocation get API sorted out
-#TO-DO: add maps with pinned locations for daily live (active) users -- in body of email
-#TO-DO: write to the csv files correctly when adding them as email attachment
-#TO-DO: scheduler for emails
+#send_mail: creates and sends email with all file attachments 
+#reverse-geolocation 
+#maps with pinned locations for daily live (active) users -- in body of email
 
 def main():
     parser = argparse.ArgumentParser()
