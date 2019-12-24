@@ -57,7 +57,7 @@ def send_mail(noNewUsers, locNewUser, LNNewUser, fromEmail, toEmail):
     msg['FROM'] = fromEmail
     msg['To'] = toEmail
     msg['Subject'] = "Your Stats for Today-GOOGLE API TEST"
-    body1 = "Welcome to your daily app report, delivered through your AWS (SES) account and connected to your jetzy-webservices MSSQL database.\n\nAttached are files containing results from your daily SQL queries. Includes registered accounts per city, new user account data, and top live destinations for the day.\n\nNumber of New Users: "
+    body1 = "Welcome to your daily app report, delivered through your AWS (SES) account and connected to your MSSQL database.\n\nAttached are files containing results from your daily SQL queries. Includes registered accounts per city, new user account data, and top live destinations for the day.\n\nNumber of New Users: "
     body2 = "\nTop Home Country for New Users: "
     body3 = " new users come from "
     body4 = "\n\nThis program is currently set to fetch data at: 2:00 PM (EST).\n(C) 2019 Maitreyi Rajaram"
@@ -113,7 +113,7 @@ def make_output_files(argpass): #makes out put files and returns number of new u
     #f.write(u"REVERSE GEOLOCATION USING GOOGLE API IN PROGRESS, for now lat/long displayed\n")
 
     # lat/long conversion --Google API
-    #gmaps = googlemaps.Client(key='AIzaSyCY5A0xtF7Acmt9Ev5zYdLXhzt-LfE3nh8')
+    #gmaps = googlemaps.Client(key='API_KEY')
 
     queryLivep1 = "SELECT Latitude, Longitude from dbo.UserGeoLocationLog where UpdatedOn >= CONVERT(DATETIME, '" #add userid to query
     queryLivep2 = "')"
